@@ -170,7 +170,7 @@ INSERT INTO Song (Title, SongLength, ReleaseDate, GenreId, ArtistId, AlbumId) VA
 
 -- 12. Write a SELECT statement to display how many songs exist for each artist. You'll need to use the COUNT() function and the GROUP BY keyword sequence.
 
-here is a change...will it save?
+
 
 
 -- 13. Write a SELECT statement to display how many songs exist for each genre. You'll need to use the COUNT() function and the GROUP BY keyword sequence.
