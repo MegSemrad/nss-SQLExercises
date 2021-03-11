@@ -1,6 +1,8 @@
--- Do not want to run all of code everytime hit the run button. To avoid this, select whatever it is 
--- that needs to be run and then press button. It is perfectly fine to leave old code. Can also comment 
--- out code as go along. 
+/*  
+    Do not want to run all of code everytime hit the run button. To avoid this, select whatever it is 
+    that needs to be run and then press button. It is perfectly fine to leave old code. Can also comment 
+    out code as go along. 
+*/
 
 
 
