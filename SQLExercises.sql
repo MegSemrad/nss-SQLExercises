@@ -115,6 +115,8 @@ INSERT INTO Song (Title, SongLength, ReleaseDate, GenreId, ArtistId, AlbumId) VA
         INSERT INTO Song(Title, SongLength, ReleaseDate, GenreId, ArtistId, AlbumId) VALUES ('Best For Last', 419, '01/28/2008', 1, 29, 27)
 
 
+
+
 -- 10. Write a SELECT query that provides the song titles, album title, and artist name for all of the data you just entered 
 --     in. Use the LEFT JOIN keyword sequence to connect the tables, and the WHERE keyword to filter the results to the album 
 --     and artist you added.
@@ -149,6 +151,7 @@ INSERT INTO Song (Title, SongLength, ReleaseDate, GenreId, ArtistId, AlbumId) VA
 
 
 
+
 -- 11. Write a SELECT statement to display how many songs exist for each album. You'll need to use the COUNT() function and the GROUP BY keyword sequence.
 -- THIS EXAMPLE DONE IN CLASS 
 
@@ -171,29 +174,81 @@ INSERT INTO Song (Title, SongLength, ReleaseDate, GenreId, ArtistId, AlbumId) VA
 
 
 -- 12. Write a SELECT statement to display how many songs exist for each artist. You'll need to use the COUNT() function and the GROUP BY keyword sequence.
+-- THIS EXAMPLE DONE IN CLASS 
+        SELECT count(s.id), ar.ArtistName
+        FROM  song s LEFT JOIN Artist ar ON s.ArtistId = ar.id
+        GROUP BY ar.ArtistName
+
+        UNION
+
+        SELECT 0, ar.ArtistName
+        FROM Artist ar LEFT JOIN Song s ON ar.Id = s.ArtistId
+        WHERE s.id IS NULL
 
 
 
 
 -- 13. Write a SELECT statement to display how many songs exist for each genre. You'll need to use the COUNT() function and the GROUP BY keyword sequence.
+-- THIS EXAMPLE DONE IN CLASS        
+        SELECT count(s.id), g.Label
+        FROM  song s LEFT JOIN Genre g ON s.GenreId = g.id
+        GROUP BY g.Label
+
+        UNION
+
+        SELECT 0, g.label
+        FROM genre g LEFT JOIN Song s ON g.Id = s.GenreId
+        WHERE s.id IS NULL
 
 
 
 
 -- 14. Write a SELECT query that lists the Artists that have put out records on more than one record label. Hint: When using GROUP BY instead of using a WHERE 
 --     clause, use the HAVING keyword
+-- THIS EXAMPLE DONE IN CLASS 
+        SELECT COUNT(DISTINCT al.label), ar.ArtistName
+        FROM Artist ar JOIN Album al ON ar.id = al.ArtistId
+        GROUP BY ar.ArtistName
+        HAVING COUNT(DISTINCT al.label) > 1
 
 
 
 
 -- 15. Using MAX() function, write a select statement to find the album with the longest duration. The result should display the album title and the duration.
+-- THIS EXAMPLE DONE IN CLASS         
+        SELECT al.Title, al.AlbumLength
+        FROM Album al
+        WHERE al.AlbumLength = (
+            SELECT MAX(al.albumlength) 
+            FROM album al
+        );
+
+        SELECT TOP 1 al.Title, al.albumlength
+        FROM Album al
+        ORDER BY al.AlbumLength DESC;
 
 
 
 
 -- 16. Using MAX() function, write a select statement to find the song with the longest duration. The result should display the song title and the duration.
+-- THIS EXAMPLE DONE IN CLASS         
+        SELECT s.Title, s.SongLength
+        FROM song s
+        WHERE s.SongLength = (
+            SELECT MAX(s.SongLength) 
+            FROM song s
+        );
+
+        SELECT TOP 1 s.Title, s.SongLength
+        FROM song s 
+        ORDER BY s.SongLength DESC;
 
 
 
 
 -- 17. Modify the previous query to also display the title of the album.
+-- THIS EXAMPLE DONE IN CLASS 
+        SELECT TOP 1 s.Title, s.SongLength, al.Title
+        FROM song s 
+        JOIN Album al ON s.AlbumId = al.id
+        ORDER BY s.SongLength DESC;
